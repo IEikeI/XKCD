@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">XKCD</string>
+    <string name="app_name">XKCD Comics</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Strings used for fragments for navigation -->
-    <string name="comic_fragment_label">XKCD Comic</string>
+    <!-- Strings used for fragments for navigation and aliases -->
+    <string name="comic_fragment_label">XKCD Comics</string>
     <string name="comic_title">xkcd</string>
     <string name="next">Next Comic</string>
     <string name="previous">Previous Comic</string>
@@ -11,12 +11,13 @@
     <string name="random">Open Random Comic</string>
     <string name="like">Like the current Comic</string>
     <string name="tts">Read the Comics transcript</string>
+    <string name="image_view_comic">Shows the current Comic</string>
 
-    <!-- Key for passing data -->
+    <!-- Keys for passing data -->
     <string name="key_start_comic">startComic</string>
 
     <!-- Strings used as placeholder -->
-    <string name="comic_placholder_title">a comic</string>
+    <string name="comic_placeholder_title">a comic</string>
     <string name="comic_placeholder_date">01.01.2023</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

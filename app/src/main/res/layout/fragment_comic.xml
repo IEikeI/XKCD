@@ -9,12 +9,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/top_bar"
         android:padding="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutHead"
             android:layout_width="374dp"
             android:layout_height="54dp"
+            android:background="@color/top_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +26,7 @@
                 android:layout_width="129dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="12dp"
-                android:text="xkcd"
+                android:text="@string/comic_placeholder_title"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonCalender"
@@ -38,7 +40,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                android:contentDescription="@string/random" />
 
             <ImageButton
                 android:id="@+id/imageButtonCalender"
@@ -47,7 +50,8 @@
                 android:src="@android:drawable/ic_menu_today"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonRandom"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/byDate" />
 
             <ImageButton
                 android:id="@+id/imageButtonNext"
@@ -56,7 +60,8 @@
                 android:src="@android:drawable/ic_media_next"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/next" />
 
             <ImageButton
                 android:id="@+id/imageButtonPrev"
@@ -68,7 +73,8 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textViewTitel"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.666" />
+                app:layout_constraintVertical_bias="0.666"
+                android:contentDescription="@string/previous" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
+            android:background="@color/background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewDate"
             app:layout_constraintVertical_bias="0.5"
@@ -91,7 +98,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars"
+                android:contentDescription="@string/image_view_comic" />
 
             <ImageButton
                 android:id="@+id/imageButtonLike"
@@ -102,7 +110,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButtonTTS"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewComic" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewComic"
+                android:contentDescription="@string/like" />
 
             <ImageButton
                 android:id="@+id/imageButtonTTS"
@@ -114,7 +123,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewComic"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                android:contentDescription="@string/tts" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -123,9 +133,10 @@
             android:layout_width="206dp"
             android:layout_height="36dp"
             android:layout_marginTop="40dp"
-            android:text="01.01.2023"
+            android:text="@string/comic_placeholder_date"
             android:textAlignment="center"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
