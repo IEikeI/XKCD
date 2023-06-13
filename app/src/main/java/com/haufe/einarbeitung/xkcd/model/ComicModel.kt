@@ -1,8 +1,5 @@
 package com.haufe.einarbeitung.xkcd.model
 
-import kotlinx.serialization.*
-
-@Serializable
 data class ComicModel(val month: String,
                       val num /* postID */: Int,
                       val link: String,
@@ -13,4 +10,4 @@ data class ComicModel(val month: String,
                       val alt /* Alternativer Text für Bildbeschreibung */: String,
                       val img /* url */: String,
                       val title: String,
-                      val day: String)
+                      val day: String) : java.io.Serializable

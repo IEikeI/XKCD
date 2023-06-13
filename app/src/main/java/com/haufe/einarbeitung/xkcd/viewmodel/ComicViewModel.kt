@@ -25,7 +25,7 @@ class ComicViewModel(private var dataModel: LikedComicModel) : ViewModel() {
     }
 
     fun getUpdatedSafeName() {
-        // TODO: "Sicherer Modus"
+        // TODO: "Sicherer Modus"?
         val updatedSafeName = dataModel.getComic().safe_title
         uiTextLiveData.postValue(updatedSafeName)
     }
@@ -39,7 +39,7 @@ class ComicViewModel(private var dataModel: LikedComicModel) : ViewModel() {
         val divider = "."
         val day = dataModel.getComic().day
         val month = dataModel.getComic().month
-        val year =  dataModel.getComic().year
+        val year = dataModel.getComic().year
         val updatedDate = day + divider + month + divider + year
         uiTextLiveData.postValue(updatedDate)
     }

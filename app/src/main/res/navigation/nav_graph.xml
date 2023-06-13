@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SecondFragment">
+    app:startDestination="@id/ComicFragment">
 
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/ComicFragment"
         android:name="com.haufe.einarbeitung.xkcd.view.ComicFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_comic"/>
+        android:label="@string/comic_fragment_label"
+        tools:layout="@layout/fragment_comic">
+        <argument
+            android:name="jsonData"
+            android:defaultValue="&quot;&quot;"
+            app:argType="string" />
+    </fragment>
 </navigation>
