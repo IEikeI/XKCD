@@ -1,0 +1,16 @@
+### User Story #1 - Aktuelles Comic anzeigen - Done
+
+### User Story #2 - alt-Text für das Comic anzeigen - Done
+
+### User Story #3 - Zum nächsten und vorherigen Comic springen - Done (leicht abgeändert)
+
+### User Story #4 - Ein zufälliges Comic auswählen (optional) - Done
+
+### User Story #5 - Ein Comic als Favorit speichern (optional) - Angefangen
+
+### User Story #6 - Favoriten verwalten (optional) - Offen
+
+### User Story #7 - Comic vorlesen lassen (optional) - Done
+
+
+Verwendete Bibliotheken: Gson (vereinfachtes Parsen)

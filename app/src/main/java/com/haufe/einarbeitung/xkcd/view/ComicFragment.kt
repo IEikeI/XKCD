@@ -1,14 +1,19 @@
 package com.haufe.einarbeitung.xkcd.view
 
+import android.R
 import android.app.DatePickerDialog
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.icu.util.Calendar
+import android.opengl.Visibility
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,13 +24,14 @@ import com.haufe.einarbeitung.xkcd.service.ImageDownloaderService
 import com.haufe.einarbeitung.xkcd.service.JSONService
 import com.haufe.einarbeitung.xkcd.viewmodel.ComicViewModel
 import com.haufe.einarbeitung.xkcd.viewmodel.ComicViewModelFactory
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.Locale
-import javax.xml.datatype.DatatypeConstants.MONTHS
+import java.util.Timer
+import kotlin.concurrent.timerTask
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -62,8 +68,11 @@ class ComicFragment : Fragment(), TextToSpeech.OnInitListener {
         //val comicModel: ComicModel = likedComicModel.getComic()!!
 
         this.maxNumber = likedComicModel.getComic()!!.num
+        viewModel.setDataModel(LikedComicModel(Pair(likedComicModel.isLiked(), likedComicModel.getComic())))
 
-        this.updateUI()
+        Timer().schedule(timerTask {
+            updateUI()
+        }, 1000)
 
         this.setupClickListeners()
         this.fragmentTitleUpdateObserver()
@@ -119,6 +128,11 @@ class ComicFragment : Fragment(), TextToSpeech.OnInitListener {
         binding.imageButtonNext.setOnClickListener { this.nextComic() }
         binding.imageButtonLike.setOnClickListener { this.switchLikeComic() }
         binding.imageButtonTTS.setOnClickListener { this.readComic() }
+
+        binding.imageViewComic.setOnLongClickListener {
+            this.showAltTextForComic()
+            return@setOnLongClickListener true
+        }
     }
 
     private fun nextComic() {
@@ -175,7 +189,17 @@ class ComicFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun showAltTextForComic() {
-        // TODO:
+        val dialogBuilder = AlertDialog.Builder(this.requireContext())
+        dialogBuilder.setTitle("Alt-Text")
+        val altText: String = viewModel.getDataModel().getComic()!!.alt
+        dialogBuilder.setMessage(altText)
+
+        var alertDialog: AlertDialog = dialogBuilder.create()
+        alertDialog.show()
+        var time: Long = (altText.length * 100).toLong()
+        Timer().schedule(timerTask {
+           alertDialog.dismiss()
+        }, time)
     }
 
     private fun readComic() {
@@ -190,12 +214,19 @@ class ComicFragment : Fragment(), TextToSpeech.OnInitListener {
     private fun fragmentComicUpdateObserver() {
         viewModel.imageURLLiveData.observe(viewLifecycleOwner, Observer { updatedImageURL ->
             var bitmap: Bitmap? = null
+
+            val progressBar = binding.progressLoader
+            progressBar.bringToFront()
+            progressBar.visibility = View.VISIBLE
+
             runBlocking {
                     val job: Job = launch(context = Dispatchers.Default) {
                     bitmap = ImageDownloaderService.getImageAsync(updatedImageURL, binding.imageViewComic, resources)
                 }
                 job.join()
             }
+
+            progressBar.visibility = View.GONE;
             binding.imageViewComic.setImageBitmap(bitmap)
         })
     }

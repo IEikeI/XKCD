@@ -91,6 +91,19 @@
             app:layout_constraintVertical_bias="1.0"
             tools:layout_editor_absoluteX="141dp">
 
+            <ProgressBar
+                android:id="@+id/progress_loader"
+                android:layout_width="382dp"
+                android:layout_height="330dp"
+                android:layout_centerInParent="true"
+                android:maxWidth="382dp"
+                android:maxHeight="330dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
             <ImageView
                 android:id="@+id/imageViewComic"
                 android:layout_width="382dp"

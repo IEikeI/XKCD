@@ -3,6 +3,9 @@ package com.haufe.einarbeitung.xkcd.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.haufe.einarbeitung.xkcd.model.LikedComicModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 
 class ComicViewModel(private var dataModel: LikedComicModel) : ViewModel() {
 
@@ -76,12 +79,15 @@ class ComicViewModel(private var dataModel: LikedComicModel) : ViewModel() {
     }
 
     fun getUpdatedDate() {
+        val tag = "# "
+        val number = dataModel.getComic()!!.num.toString()
         val divider = "."
         val day = dataModel.getComic()!!.day
-        val month = dataModel.getComic()!!.month
+        val month =  dataModel.getComic()!!.month
         val year = dataModel.getComic()!!.year
         val updatedDate = day + divider + month + divider + year
-        uiDateLiveData.postValue(updatedDate)
+        val fullText = tag + number + "   of " + updatedDate
+        uiDateLiveData.postValue(fullText)
     }
 
     fun getUpdatedLike() {
