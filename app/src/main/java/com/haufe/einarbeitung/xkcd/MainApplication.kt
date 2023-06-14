@@ -7,12 +7,9 @@ import android.content.Context
  * MainApplication class for global applicationContext
  */
 open class MainApplication : Application() {
-    init {
-        instance = this
-    }
-
     companion object {
-        private var instance: MainApplication? = null
+        lateinit var instance: MainApplication
+            private set
 
         fun applicationContext() : Context {
             return instance!!.applicationContext
@@ -21,5 +18,7 @@ open class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
     }
+
 }

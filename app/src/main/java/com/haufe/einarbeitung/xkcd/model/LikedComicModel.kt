@@ -3,9 +3,9 @@ package com.haufe.einarbeitung.xkcd.model
 /**
  * Wrapper für ViewPost zusammen mit dem eingetragenen "Gefällt mir!"
  */
-class LikedComicModel(private var likedModel: Pair<Boolean, ComicModel>) {
+class LikedComicModel(private var likedModel: Pair<Boolean, ComicModel?>) {
 
-    fun getLikedModel(): Pair<Boolean, ComicModel> {
+    fun getLikedModel(): Pair<Boolean, ComicModel?> {
         return likedModel
     }
 
@@ -21,7 +21,7 @@ class LikedComicModel(private var likedModel: Pair<Boolean, ComicModel>) {
         return this.likedModel.first
     }
 
-    fun getComic() : ComicModel {
+    fun getComic() : ComicModel? {
         return this.likedModel.second
     }
 

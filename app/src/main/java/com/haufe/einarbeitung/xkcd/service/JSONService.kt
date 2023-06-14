@@ -1,12 +1,16 @@
 package com.haufe.einarbeitung.xkcd.service
 
 import android.content.Context
+import android.provider.ContactsContract.CommonDataKinds.Website.URL
+import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.haufe.einarbeitung.xkcd.MainApplication
 import com.haufe.einarbeitung.xkcd.model.ComicModel
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
+import java.net.URL
 
 class JSONService {
 
@@ -28,14 +32,15 @@ class JSONService {
         private const val currentComicURL: String = "https://xkcd.com/info.0.json"
 
         /**
-         * Statische Methode: Gibt JSON-Informationen als String für eine
+         * Gibt JSON-Informationen als String für eine
          * übergebene URL zurück.
          * Im Fehlerfall werden lokale Default-Informationen aufgerufen
          */
         private fun getJSONAsString(url: String): String? {
             var responseString: String? = null
             try {
-                val jsonObject: JSONObject = JSONObject(url)
+                val apiResponse: String = URL(url).readText()
+                val jsonObject: JSONObject = JSONObject(apiResponse)
                 responseString = jsonObject.toString()
             } catch (e: JSONException) {
                 e.printStackTrace()
@@ -65,8 +70,8 @@ class JSONService {
          * Inhalte geladen werden können
          */
         private fun getDefaultComic(): String {
-            val context: Context = MainApplication.applicationContext()
-            val fileName: String = "defaultJSON.json"
+            val context: Context = MainApplication.instance.applicationContext
+            val fileName: String = "data/defaultJSON.json"
             val jsonString = this.getJSONFromAsset(context, fileName)
             return jsonString
         }
@@ -76,9 +81,9 @@ class JSONService {
          */
         private fun getComicFromServer(jsonID: String): String {
             val fullURL: String = baseURL + jsonID + urlPostFix
-            var jsonString = getJSONAsString(fullURL)
+            var jsonString = this.getJSONAsString(fullURL)
             if (jsonString == null) {
-                jsonString = getDefaultComic()
+                jsonString = this.getDefaultComic()
             }
             return jsonString
         }
@@ -88,9 +93,10 @@ class JSONService {
          */
         private fun getCurrentComicFromServer(): String {
             val url: String = this.currentComicURL
-            var jsonString = getJSONAsString(url)
+            var jsonString: String? = this.getJSONAsString(url)
+            /* Fallback, wenn Serverdaten nicht geladen werden können */
             if (jsonString == null) {
-                jsonString = getDefaultComic()
+                jsonString = this.getDefaultComic()
             }
             return jsonString
         }
@@ -101,7 +107,8 @@ class JSONService {
          */
         private fun parseToObject(jsonString: String): ComicModel {
             val gson = Gson()
-            val viewPostModel: ComicModel = gson.fromJson(jsonString, ComicModel::class.java)
+            val type = object : TypeToken<ComicModel>() { }.type
+            val viewPostModel: ComicModel = gson.fromJson(jsonString, type)
             return viewPostModel
         }
 
